@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:app="http://springfuse.jaxio.com/app"
+		xmlns:appcc="http://java.sun.com/jsf/composite/components"
+		contentType="text/html" 
+		encoding="UTF-8"
+		lang="#{localeService.locale}">
+	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#{localeService.locale}" lang="#{localeService.locale}">
+	<h:head>
+		<f:facet name="first">
+			<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+			<title>#{empty title? msg.main_title : resourcesUtil.getProperty(title)}</title>
+		</f:facet>
+		<f:facet name="last">
+			                    	<h:outputStylesheet name="css/main.css" />
+                        <h:outputStylesheet name="css/bootstrap.css"/>
+                        <h:outputStylesheet name="css/bootstrap-responsive.css"/>
+                        <h:outputStylesheet name="css/icsw2_16.css"/>
+                        <h:outputStylesheet name="css/beoro.css"/>
+
+                        
+                        
+                        <h:outputScript name="js/main.js" />
+                        <h:outputScript name="locale-primefaces.js" library="js" />
+                        <h:outputScript name="shortcut.js" library="js" />
+                       
+                        
+                        <script type="text/javascript">
+                            
+                            function liccencaDialogShow(xhr, status, args)
+                            {
+                                if(args.expirou)
+                                {
+                                    dialogue.show();
+                                }
+                            }
+                            //links das paginas
+                            shortcut.add("Ctrl+Shift+C",function() {
+                        	PrimeFaces.ab({source:'form:p1',formId:'form'});return false;
+                            });
+                            shortcut.add("Ctrl+Shift+P",function() {
+                        	PrimeFaces.ab({source:'form:p3',formId:'form'});return false;
+                            });
+                            shortcut.add("Ctrl+Shift+T",function() {
+                                PrimeFaces.ab({source:'form:p4',formId:'form'});return false;
+//                        	window.location = 'domain/produtorSelect.faces?_ncid_=true'
+                            });
+                            shortcut.add("Ctrl+Shift+S",function() {
+                                PrimeFaces.ab({source:'form:p5',formId:'form'});return false;
+//                        	window.location = 'domain/servicosSelect.faces?_ncid_=true'
+                            });
+                            shortcut.add("Ctrl+Shift+A",function() {
+                                PrimeFaces.ab({source:'form:p6',formId:'form'});return false;
+//                        	window.location = 'domain/agendaSelect.faces?_ncid_=true'
+                            });
+                            shortcut.add("Ctrl+Shift+O",function() {
+                                PrimeFaces.ab({source:'form:p8',formId:'form'});return false;
+                            });
+                            shortcut.add("Ctrl+Shift+E",function() {
+                                PrimeFaces.ab({source:'form:p10',formId:'form'});return false;
+//                        	window.location = 'domain/estudiosSelect.faces?_ncid_=true'
+                            });
+                            shortcut.add("Ctrl+Shift+L",function() {
+                                PrimeFaces.ab({source:'form:p11',formId:'form'});return false;
+//                        	window.location = 'domain/locacaoSelect.faces?_ncid_=true'
+                            });
+                            
+                            shortcut.add("Ctrl+Shift+R",function() {
+                                PrimeFaces.ab({source:'form:p14',formId:'form'});return false;
+//                        	window.location = 'domain/lancamentoSelect.faces?_ncid_=true'
+                            });
+                            shortcut.add("Ctrl+Shift+U",function() {
+                                PrimeFaces.ab({source:'form:p13',formId:'form'});return false;
+//                        	window.location = 'domain/accountSelect.faces?_ncid_=true'
+                            });
+                            shortcut.add("Shift+Esc",function() {                                
+                        	window.location = 'logout.faces'
+                            });
+                            
+                            //botoes novo fechar 
+                            shortcut.add("Esc",function() {
+                                document.getElementById('form:quit').click(); 
+                            });
+                            shortcut.add("Insert",function() {
+                                document.getElementById('form:create').click(); 
+                            });
+                            shortcut.add("Esc",function() {
+                                document.getElementById('form:close').click(); 
+                            });
+                            shortcut.add("Delete",function() {
+                                document.getElementById('form:delete').click(); 
+                            });
+                            shortcut.add("Alt+Insert",function() {                                
+                                document.getElementById('form:tabs:listItensOsList:addItensOs').click(); 
+                            });
+                            
+                            //Caixa de dialogos salvar dialogo
+                            shortcut.add("S",function() {
+                                if (document.getElementById('form:askForSaveDialog').visible){
+                                    document.getElementById('form:askForSaveDialogYes').click(); 
+                                }
+                            });
+                            shortcut.add("N",function() {
+                                if (document.getElementById('form:askForSaveDialog').visible){
+                                    document.getElementById('form:askForSaveDialogNo').click(); 
+                                }
+                            });
+                            
+                            
+                            //Caixa de dialogos deletar dialogo
+                            shortcut.add("S",function() {
+                                if (document.getElementById('form:askForDeleteDialog').visible){
+                                    document.getElementById('form:askForDeleteDialogYes').click(); 
+                                }
+                            });
+                            shortcut.add("N",function() {
+                                if (document.getElementById('form:askForDeleteDialog').visible){
+                                    document.getElementById('form:askForDeleteDialogNo').click(); 
+                                }
+                            });
+ 
+ 
+                      
+                            function data(v){
+                                v=v.replace(/\D/g,"")
+                                //Remove tudo o que não é dígito    
+                                v=v.replace(/^(\d{2})(\d)/,"$1/$2")
+                                //Coloca barra entre o 2° e o 3° digito
+                                v=v.replace(/(\d{2})(\d)/,"$1/$2")
+                                //Coloca barra  entre o 4° e o 5° dígito    
+                                return v;
+                            }
+                            
+                            
+                            function moeda(z){
+                                v = z.value;
+                                v=v.replace(/\D/g,"") // permite digitar apenas numero
+                                v=v.replace(/(\d{1})(\d{14})$/,"$1.$2") // coloca ponto antes dos ultimos digitos
+                                v=v.replace(/(\d{1})(\d{11})$/,"$1.$2") // coloca ponto antes dos ultimos 11 digitos
+                                v=v.replace(/(\d{1})(\d{8})$/,"$1.$2") // coloca ponto antes dos ultimos 8 digitos
+                                v=v.replace(/(\d{1})(\d{5})$/,"$1.$2") // coloca ponto antes dos ultimos 5 digitos
+                                v=v.replace(/(\d{1})(\d{1,2})$/,"$1,$2") // coloca virgula antes dos ultimos 2 digitos
+                                z.value = v;
+                            }
+                            function mascara(o,f){  
+                                v_obj=o  
+                                v_fun=f  
+                                setTimeout("execmascara()",1)  
+                            }  
+                            function execmascara(){  
+                                v_obj.value=v_fun(v_obj.value)  
+                            }  
+                            function mtel(v){  
+                                v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito  
+                                v=v.replace(/^(\d{16})(\d)/g,"$1-$2"); //Coloca parênteses em volta dos dois primeiros dígitos  
+                                v=v.replace(/^(\d{8})(\d)/g,"$1-$2");
+                                
+                                if (v.length == 26){
+                                    
+                                    
+                                    //jQuery(PrimeFaces.escapeClientId('form:frmSerial:licencaBt')).focus();
+                                    document.forms[0].elements[1].focus();
+                                    //alert(document.forms[0].elements[1].value);
+                                }
+                                return v;  
+                            }  
+                            
+                            function id( el ){  
+                                return document.getElementById( el );  
+                            }  
+                            
+                            
+                            
+                            function serial(z){
+                                v = z.value;
+                                v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito  
+                                v=v.replace(/^(\d{16})(\d)/g,"$1-$2"); //Coloca parênteses em volta dos dois primeiros dígitos  
+                                v=v.replace(/^(\d{8})(\d)/g,"$1-$2");
+                                return v;               }
+                            
+                            function percent(z){
+                                v = z.value;
+                                v=v.replace(/\D/g,"") // permite digitar apenas numero                                
+                                v=v.replace(/(\d{1})(\d{0,1})$/,"$1$2%") // coloca virgula antes dos ultimos 2 digitos
+                                z.value = v;
+                            }
+ 
+                            window.onload = function() {
+                                document.getElementById('formId:inputId').focus();
+                            }
+                            function openDialog(){
+                                instalado = document.getElementById('form:instalacaoHiden').value;
+                                expirou = document.getElementById('form:licencaHiden').value;
+                                
+                                if (instalado == "false"){
+                                    //alert("Deveria abrir dialog inslacao");
+                                    instalationDialog.show();
+                                }else if(expirou == "true"){
+                                    //alert("Deveria abrir dialog licenca");
+                                    licencaDialog.show();                                
+                                }
+                                
+                            }
+                            function testarPagina(){
+                                title = document.title;
+                                
+                                if (title == "Empresa"){
+                                    document.getElementById('form:sendNew').disabled = true;; 
+                                    document.getElementById('form:sendNew').className = 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-state-disabled';
+                                    document.getElementById('form:delete').disabled = true;
+                                    document.getElementById('form:delete').className = 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-state-disabled';
+                                }
+                            } 
+                           
+                            
+                            jQuery(function($){  
+                                $(".fone").mask("(999) 9999-9999");
+                                $(".cep").mask("99999-999");
+                                $(".cpf").mask("999.999.999-99");
+                                $(".rg").mask("aa-99.999.999");
+                                $(".cnpj").mask("99.999.999/9999-99");
+                                $(".hora").mask("99:99");
+                                $(".data").mask("99/99/9999");
+
+
+                            });
+
+                            jQuery(document).ready(function(jQuery) {  
+                            // Chamada da funcao upperText(); ao carregar a pagina  
+                            upperText();  
+                            });  
+                            // Funcao que faz o texto ficar em uppercase  
+                            function upperText() {  
+                                // Para tratar o colar  
+                                jQuery(".up").bind('paste', function(e) {  
+                                    var el = jQuery(this);  
+                                    setTimeout(function() {  
+                                        var text = jQuery(el).val();  
+                                        el.val(text.toUpperCase());  
+                                    }, 100);  
+                                });  
+
+                                // Para tratar quando é digitado  
+                                jQuery(".up").keypress(function() {  
+                                    var el = jQuery(this);  
+                                    setTimeout(function() {  
+                                        var text = jQuery(el).val();  
+                                        el.val(text.toUpperCase());  
+                                    }, 100);  
+                                });  
+                            }  
+                        </script>
+                        <STYLE type="text/css">
+                                .stilo1 {color:white; background-color: #9A9ACD; font-weight: bold}
+                                .stilo2 {color:green;}
+                                
+                        </STYLE>
+		</f:facet>
+	</h:head>
+	<h:body onload="testarPagina();openDialog();">
+		<p:growl widgetVar="growlNotificationBar" showDetail="true" sticky="false" life="1500" />
+		<img class="environment #{environmentService.environment}"/>
+		<h:form id="form" enctype="multipart/form-data; charset=utf-8">
+			<!-- regular layout (does not work with chromeshades) -->
+			<p:layout fullPage="true" >
+				<p:layoutUnit id="top" position="north" resizable="false" size="115">
+					<div role="banner">
+                                            <div class="container">
+                                                <div class="row">
+                                                  <div class="span3">
+                                                      <div class="main-logo"><h:graphicImage name="img/logo.png"/></div>
+                                                  </div>
+                                                  <div class="span5">
+                                                    <nav class="nav-icons">
+                                                      <ul>
+                                                        <li><a href="home.faces" class="ptip_s"><i class="icsw16-home"></i></a></li>
+                                                        <li><a href="javascript:void(0)" onclick="PrimeFaces.ab({source:'form:p7',formId:'form'});return false;" alt="Nova Ordem de Serviço" class="ptip_s"><i class="icsw16-create-write"></i></a></li>
+                                                        <li><a href="javascript:void(0)" onclick="PrimeFaces.ab({source:'form:p6',formId:'form'});return false;" alt="Compromissos" class="ptip_s"><i class="icsw16-clock"></i><span class="badge badge-info"><c:if test="#{userContextService.compromissoToday > 0}">#{userContextService.compromissoToday}</c:if></span></a></li>
+                                                        <li><a href="javascript:void(0)" onclick="PrimeFaces.ab({source:'form:p12',formId:'form'});return false;" class="ptip_s"><i class="icsw16-price-tag"></i><span class="badge badge-important"><c:if test="#{userContextService.lancamentoToday > 0}">#{userContextService.lancamentoToday}</c:if></span></a></li>
+                                                        <li><a href="javascript:void(0)" onclick="PrimeFaces.ab({source:'form:p15',formId:'form'});return false;" class="ptip_s"><i class="icsw16-cog"></i></a></li>
+                                                      </ul>
+                                                    </nav>
+                                                  </div>
+                                                  <div class="span4">
+                                                    <div class="user-box">
+                                                        <div class="user-box-inner">
+                                                            <h:graphicImage name="${userContextService.avatar}" class="user-avatar img-avatar" rendered="#{userContextService.isLoggedIn() and not empty userContextService.avatar}"/>
+                                                            <h:graphicImage name="img/sem_foto.gif" class="user-avatar img-avatar" rendered="#{userContextService.isLoggedIn() and empty userContextService.avatar}"/>
+                                                            
+                                                          <div class="user-info"> Bem Vindo, <strong><h:outputFormat rendered="#{userContextService.isLoggedIn()}" value="${userContextService.username}" /></strong>
+                                                              <ul class="unstyled">
+                                                                <li><a href="#">Editar Conta</a></li>
+                                                                <li>·</li>
+                                                                <li>
+                                                                    <a href="http://tzd-themes.com/beoro_admin/login.php">
+                                                                        <h:outputLink id="login_link" value="#{facesContext.externalContext.requestContextPath}/login.faces"  rendered="#{userContextService.isAnonymousUser()}">#{msg.connexion}</h:outputLink>
+									<h:outputLink id="logout_link" value="#{facesContext.externalContext.requestContextPath}/logout.faces" rendered="#{userContextService.isLoggedIn()}">#{msg.logout}</h:outputLink>
+						
+                                                                    </a>
+                                                                </li>
+                                                              </ul>
+                                                          </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+<!--						<h:panelGrid columns="3" style="width: 100%">
+							<h:outputLink id="logo_link" value="http://www.jaxio.com/" title="Jaxio" ><h:graphicImage id="logoHeader" width="179" height="63" alt="Logo Jaxio" name="img/logo-jaxio.png" style="border: 0px;"/></h:outputLink>
+							<h1 style="text-align: center;">#{empty title? msg.main_title : resourcesUtil.getProperty(title)}</h1>
+							<h:panelGroup>
+								<div class="userInfo">
+									<h:outputText value="#{userContextService.username} #{userContextService.roles}" styleClass="userInfo-username" rendered="#{userContextService.isLoggedIn()}"/>
+									<h:outputLink id="login_link" value="#{facesContext.externalContext.requestContextPath}/login.faces" styleClass="userInfo-user" rendered="#{userContextService.isAnonymousUser()}">#{msg.connexion}</h:outputLink>
+									<h:outputLink id="logout_link" value="#{facesContext.externalContext.requestContextPath}/logout.faces" styleClass="userInfo-user" rendered="#{userContextService.isLoggedIn()}">#{msg.logout}</h:outputLink>
+									<h:outputLink id="home_link" value="#{facesContext.externalContext.requestContextPath}/home.faces" styleClass="userInfo-welcome">#{msg.home}</h:outputLink>
+									<p:commandLink id="switchToFrench" action="#{localeService.switchToFrench()}" styleClass="userInfo-fr" rendered="#{!localeService.isFrench()}" />
+									<p:commandLink id="switchToEnglish" action="#{localeService.switchToEnglish()}" styleClass="userInfo-en" rendered="#{localeService.isFrench()}" />
+									<h:outputLink url="#{facesContext.externalContext.requestContextPath}/monitoring" rendered="#{userContextService.hasRole('ROLE_MONITORING')}">Monitoring</h:outputLink>
+								</div>
+							</h:panelGroup>
+						</h:panelGrid>-->
+					</div>
+					<div role="navigation">
+						<p:toolbar>
+							<ui:insert name="toolbarChildren"/>
+							<p:toolbarGroup align="right">
+								<p:menuButton
+									value="Conversations (#{conversationManager.conversationCount})"
+									model="#{conversationManager.conversationMenuModel}" 
+									rendered="#{conversationManager.conversationCount > 0}"/>
+								<p:menuButton value="Cadastro">
+                                                                        <p:menuitem id="p1" value="#{msg.cliente}" action="#{clienteController.beginSearch()}" rendered="#{clientePermission.canSearch()}" />
+									<p:menuitem id="p2" value="#{msg.grupocliente}" action="#{grupoclienteController.beginSearch()}" rendered="#{grupoclientePermission.canSearch()}" />
+									<p:menuitem id="p3" value="#{msg.equipamentos}" action="#{equipamentosController.beginSearch()}" rendered="#{equipamentosPermission.canSearch()}" />
+									<p:menuitem id="p4" value="#{msg.produtor}" action="#{produtorController.beginSearch()}" rendered="#{produtorPermission.canSearch()}" />
+									<p:menuitem id="p5" value="#{msg.servicos}" action="#{servicosController.beginSearch()}" rendered="#{servicosPermission.canSearch()}" />
+									<p:menuitem id="p6" value="#{msg.agenda}" action="#{agendaController.beginSearch()}" rendered="#{agendaPermission.canSearch()}" />
+									
+								</p:menuButton>
+                                                                <p:menuButton value="Orçamento/O.S">
+                                                                        <p:menuitem id="p7" value="Cadastrar" action="#{osController.beginCreate()}" rendered="#{osPermission.canCreate()}" />
+									<p:menuitem id="p8" value="Consultar" action="#{osController.beginSearch()}" rendered="#{osPermission.canSearch()}" />
+									
+                                                                </p:menuButton>
+								<p:menuButton value="Estudios">
+                                                                        <p:menuitem id="p9" value="Cadastrar" action="#{estudiosController.beginCreate()}" rendered="#{estudiosPermission.canCreate()}" />
+                                                                        <p:menuitem id="p10" value="Consultar" action="#{estudiosController.beginSearch()}" rendered="#{estudiosPermission.canSearch()}" />
+									<p:menuitem id="p11" value="Locação" action="#{locacaoController.beginSearch()}" rendered="#{locacaoPermission.canSearch()}" />									
+								</p:menuButton>
+								<p:menuButton value="Financeiro">
+									<p:menuitem id="p12" value="Lançamento" action="#{lancamentosController.beginSearch()}" rendered="#{lancamentosPermission.canSearch()}" />
+
+								</p:menuButton>
+								<p:menuButton value="Segurança">
+									<p:menuitem id="p13" value="Usuários" action="#{accountController.beginSearch()}" rendered="#{accountPermission.canSearch()}" />
+									<p:menuitem id="p14" value="Permissões" action="#{roleController.beginSearch()}" rendered="#{rolePermission.canSearch()}" />
+								</p:menuButton>
+								<p:menuButton value="Configurações">
+                                                                        <p:menuitem id="p15" value="Configurações Gerais" action="#{empresaController.beginSearch()}" rendered="#{empresaPermission.canSearch()}" />
+								</p:menuButton>
+
+							</p:toolbarGroup>
+						</p:toolbar>
+						<p:outputPanel rendered="#{readonly}">
+							<!-- give focus to cancel to ease keyboard navigation -->
+							<script type="text/javascript">
+								$(function() {
+									setTimeout(function() {
+										APP.focusTo('form:cancel');
+									}, 200);
+								});
+							</script>
+						</p:outputPanel>
+					</div>
+				</p:layoutUnit>
+				<p:layoutUnit id="center" position="center">
+					<div id="messagesRegion" aria-label="form feedback" aria-live="assertive" aria-relevant="additions">
+						<appcc:messages id="messages" />
+					</div>
+					<p:focus context="center" rendered="#{messagesHelper.hasNoMessages()}" />
+					<ui:insert name="content"/>
+				</p:layoutUnit>
+				<p:layoutUnit id="bottom" position="south" size="30">
+					<p:outputPanel layout="block" rendered="#{!localeService.isFrench()}">
+						© 2005-2013 <a href="http://www.jaxio.com/" target="blank">JAXIO</a> - Generated by <a href="http://www.jaxio.com/en/celerio.html" target="blank">Celerio</a> - <a href="http://www.jaxio.com/en/contact-us.html" target="blank">Contact us</a> - <a href="http://www.twitter.com/springfuse" target="blank">@springfuse</a>
+					</p:outputPanel>
+					<p:outputPanel layout="block" rendered="#{localeService.isFrench()}">
+						© 2005-2013 <a href="http://www.jaxio.com/" target="blank">JAXIO</a> - Application générée par <a href="http://www.jaxio.com/celerio.html" target="blank">Celerio</a> - <a href="http://www.jaxio.com/nous-contacter.html" target="blank">Contactez-nous</a> - <a href="http://www.twitter.com/springfuse" target="blank">@springfuse</a>
+					</p:outputPanel>
+				</p:layoutUnit>
+			</p:layout>
+			<ui:insert name="dialogs"/>
+		</h:form>
+	</h:body>
+	</html>
+</f:view>

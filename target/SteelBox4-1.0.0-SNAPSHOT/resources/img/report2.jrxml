@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a0cc2d68-5750-4219-af5b-4683485a55b2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="New Dataset 1" uuid="065f4909-79e0-4d54-b617-1a70eab3b8be">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     itens_os.`adicionais` AS itens_os_adicionais,
+     itens_os.`desconto` AS itens_os_desconto,
+     itens_os.`quantidade` AS itens_os_quantidade,
+     itens_os.`valor` AS itens_os_valor,
+     servicos.`servico` AS servicos_servico
+FROM
+     `os` os INNER JOIN `itens_os` itens_os ON os.`id` = itens_os.`os_id`
+     INNER JOIN `servicos` servicos ON itens_os.`servicos_id` = servicos.`id_servicos`]]>
+		</queryString>
+		<field name="itens_os_adicionais" class="java.lang.Double"/>
+		<field name="itens_os_desconto" class="java.lang.Double"/>
+		<field name="itens_os_quantidade" class="java.lang.Integer"/>
+		<field name="itens_os_valor" class="java.lang.Double"/>
+		<field name="servicos_servico" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\João Paulo\\SteelBox\\src\\main\\webapp\\resources\\img\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     cliente.`nome` AS cliente_nome,
+     itens_os.`valor` AS itens_os_valor,
+     itens_os.`desconto` AS itens_os_desconto,
+     itens_os.`quantidade` AS itens_os_quantidade,
+     itens_os.`adicionais` AS itens_os_adicionais,
+     os.`status` AS os_status,
+     os.`data_atendimento` AS os_data_atendimento,
+     os.`data_conclusao` AS os_data_conclusao,
+     os.`data_venciemento` AS os_data_venciemento,
+     os.`forma_pagamento` AS os_forma_pagamento,
+     servicos.`servico` AS servicos_servico,
+     servicos.`valor` AS servicos_valor,
+     produtor.`nome` AS produtor_nome
+FROM
+     `cliente` cliente INNER JOIN `os` os ON cliente.`id` = os.`cliente_id`
+     INNER JOIN `itens_os` itens_os ON os.`id` = itens_os.`os_id`
+     INNER JOIN `produtor` produtor ON os.`produtor_id` = produtor.`id`
+     INNER JOIN `servicos` servicos ON itens_os.`servicos_id` = servicos.`id_servicos`]]>
+	</queryString>
+	<field name="cliente_nome" class="java.lang.String"/>
+	<field name="itens_os_valor" class="java.lang.Double"/>
+	<field name="itens_os_desconto" class="java.lang.Double"/>
+	<field name="itens_os_quantidade" class="java.lang.Integer"/>
+	<field name="itens_os_adicionais" class="java.lang.Double"/>
+	<field name="os_status" class="java.lang.String"/>
+	<field name="os_data_atendimento" class="java.sql.Date"/>
+	<field name="os_data_conclusao" class="java.sql.Date"/>
+	<field name="os_data_venciemento" class="java.sql.Date"/>
+	<field name="os_forma_pagamento" class="java.lang.String"/>
+	<field name="servicos_servico" class="java.lang.String"/>
+	<field name="servicos_valor" class="java.lang.Float"/>
+	<field name="produtor_nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<line>
+				<reportElement uuid="de952371-146d-4212-a26b-4749dff54f0a" x="0" y="43" width="680" height="1"/>
+			</line>
+			<image>
+				<reportElement uuid="c44e05d6-af26-4207-ba8c-e025367fb0af" x="444" y="0" width="187" height="71"/>
+				<imageExpression><![CDATA["C:\\Users\\João Paulo\\Downloads\\Logo_e.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="5c40b568-1c1a-4191-99a1-1995c798f834" x="12" y="51" width="123" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo do Relatório:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="53835328-87ca-45b3-9bd4-2cb11cce963f" x="12" y="71" width="133" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intervalo de Tempo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2ca2edb3-e610-4815-91ff-8ae79b48a386" x="12" y="19" width="250" height="25" forecolor="#007CBB"/>
+				<textElement>
+					<font fontName="Tahoma" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AJ2 Softwares LTDA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="155" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6a355977-50c1-4868-8011-650f70d8d8c8" x="397" y="287" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

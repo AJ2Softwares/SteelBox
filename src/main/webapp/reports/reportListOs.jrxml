@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dfa636b-951c-4c41-960c-055c5ce0f353">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="dataAtendimento" class="java.util.Date"/>
+	<field name="dataConclusao" class="java.util.Date"/>
+	<field name="dataVenciemento" class="java.util.Date"/>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e3caf935-d95b-4d12-afbf-57209a1ea205" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0b28f830-4f6b-44f7-979f-70dcb6de7e20" x="100" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[produtor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f3984c73-fea5-440b-bc40-803240666e09" x="400" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[dataVenciemento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="21c18bb8-ba22-420b-bcd6-46b630fe0816" x="300" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[dataConclusao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="246bf5be-3f37-4f25-b124-eafb8ed0394a" x="200" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[dataAtendimento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement uuid="3577713a-ad08-4c98-96a1-dae3d5e2302e" x="400" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataVenciemento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="edefe269-4cc9-4bb5-95c4-4fff254eb294" x="300" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataConclusao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d49425ba-ef69-495f-a374-63712c215e1c" x="200" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataAtendimento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

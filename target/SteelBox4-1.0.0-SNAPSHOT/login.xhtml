@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"	
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+        xmlns:app="http://springfuse.jaxio.com/app"
+	xmlns:appcc="http://java.sun.com/jsf/composite/components"
+	template="/WEB-INF/layouts/main.xhtml">
+	<ui:define name="content">
+		<!-- our form is not a jsf form... -->
+                <h:outputText value="#{licencaBean.isInstalade()}" />
+                <h:outputText value="#{licencaBean.isExpirated()}" />
+                <script>$("form").attr('action','#{request.contextPath}/logincheck.faces');</script>
+		<p:panel id="loginPanel" header="#{msg.login_header}" styleClass="loginBox">
+			<p:focus context="loginPanel"/>
+			<h:outputText value="#{msg.login_description}" escape="false"/>
+			<table>
+				<tbody>
+					<c:if test="#{not empty param.login_error}">
+						<tr>
+							<td colspan="2" style="background-color: orange; text-align: center;">#{msg.login_error}</td>
+						</tr>
+					</c:if>
+					<c:if test="#{not empty param.session_expired}">
+						<tr>
+							<td colspan="2">#{msg.session_expired}</td>
+						</tr>
+					</c:if>
+					<tr>
+						<td>
+							<label for="j_username"><strong>#{msg.login_login}</strong></label></td>
+						<td>
+							<c:if test="#{not empty param.login_error}">
+								<c:set var="username" value="#{sessionScope.SPRING_SECURITY_LAST_USERNAME}" />
+							</c:if>
+							<input id="j_username" type="text" name="j_username" value="#{username}" />
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 100px;">
+							<label for="j_password"><strong>#{msg.login_password}</strong></label></td>
+						<td>
+							<input id="j_password" type="password" name="j_password" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<input id="_spring_security_remember_me" type="checkbox" name="_spring_security_remember_me" />
+				<label for="_spring_security_remember_me">#{msg.login_rememberme}</label>
+			</p>
+			<input name="submit" type="submit" value="#{msg.login_submit}" />
+		</p:panel>
+                <h:inputHidden id="instalacaoHiden" value="#{licencaBean.isInstalade()}" />
+                <h:inputHidden id="licencaHiden" value="#{licencaBean.isExpirated()}" />
+                <h:form/>    
+            
+                <h:form/>
+                <p:dialog id="instalation" appendToBody="true"
+                      width="400"
+                      modal="true"
+                      closable="false"
+                      header="Selecione uma das Opções" 
+                      widgetVar="instalationDialog">  
+                    <h:panelGrid columns="2">
+
+                        <h:commandLink onclick="instalationDialog.hide(); instalationDialog2.show()">
+                            <h:graphicImage id="settings" name="img/settings.png"/>
+                        </h:commandLink>
+                        <h:outputText value="Concluir Instalação"/>
+                        <h:commandLink  onclick="instalationDialog.hide(); backupDialog.show()">
+                            <h:graphicImage id="backupImg" name="img/floppy_drive.png"/>                            
+                        </h:commandLink>
+                        
+                        <h:outputText value="Restaurar Backup"/>
+                        
+                        
+                        
+                    </h:panelGrid>
+                </p:dialog>
+                <p:dialog id="backup" appendToBody="true"
+                      width="500"
+                      modal="true"
+                      closable="false"
+                      header="Selecione o arquivo de restauração" 
+                      widgetVar="backupDialog">  
+                    <h:panelGrid columns="2">                        
+                        <p:outputPanel id="agendaBinaryOP">
+                            <h:panelGrid columns="2">
+                                <p:fileUpload id="agendaBinary"
+                                              
+                                        fileUploadListener="#{licencaBean.fileUpload}"
+                                        label="Selecione"
+                                        auto="true"
+                                        update="agendaBinaryOP"
+                                        sizeLimit="20000000"
+                                        allowTypes="/(\.|\/)(zip|jpe?g|sb|txt|doc|ppt|pdf|key|xls|number|pages)$/"
+                                        rendered="#{!readonly}" />
+                                <p:commandButton icon="ui-icon-disk" value="Restaurar" update=":form:messages" immediate="true" process="@this"
+                                                 oncomplete="backupDialog.hide();" actionListener="#{licencaBean.restaurar}"/>  
+                            </h:panelGrid>
+
+                                
+                        </p:outputPanel>
+                        
+                        
+                        
+                    </h:panelGrid>
+                </p:dialog>
+                <p:dialog id="instalation2" appendToBody="true"
+                      width="900"
+                      height="400"
+                      modal="true"
+                      closable="false"
+                      header="Últimas Configurações" 
+                      widgetVar="instalationDialog2">  
+                    <h:form>
+                
+                <!-- <h1 style="text-align: center; color: #26A1E1">Primeiros Passos</h1> -->
+                
+                <p:wizard widgetVar="wiz"  nextLabel="Próximo" backLabel="Anterior"
+            flowListener="#{licencaBean.onFlowProcess}">  
+                    
+      
+                    <p:tab id="contas" title="1º Passo">  
+                        <appcc:messages id="messages" />
+                        <p:panel header="Alterando dados do usuario">  
+                            <br/>
+                            <br/>
+                            <br/>
+                            
+                            <h:panelGrid columns="2">                               
+                                <app:input id="login" value="#{licencaBean.account.login}" size="100" label="${msg.account_login}" required="true">
+                                    <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.account}" property="login" />
+                                </app:input>
+                                <app:inputPassword id="password" value="#{licencaBean.account.password}" size="100" label="${msg.account_password}" required="true" />
+                                <app:input id="email" value="#{licencaBean.account.email}" size="100" label="${msg.account_email}" required="true">
+                                        <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.account}" property="email" />
+                                </app:input>
+                                <app:input id="firstName" value="#{licencaBean.account.firstName}" size="100" label="${msg.account_firstName}" />
+                                <app:input id="lastName" value="#{licencaBean.account.lastName}" size="100" label="${msg.account_lastName}" />
+                                <app:inputDate id="birthDate" value="#{licencaBean.account.birthDate}" label="${msg.account_birthDate}" required="true" />
+
+                            </h:panelGrid>
+                        </p:panel>  
+                    </p:tab>  
+
+                        <p:tab id="empresa" title="2º Passo">  
+                            <appcc:messages id="messages2" />
+                            <p:panel header="Alterando dados da empresa">  
+                                
+                            
+                                <p:tabView id="tabs2" activeIndex="#{licencaBean.tabBean.activeIndex}">
+                                    <p:ajax event="tabChange" />
+                                    <p:tab id="tgerais" title="${msg.dados_gerais}">
+                                        <script type="text/javascript">
+                                            jQuery(function(j){  
+                                                $(".fone").mask("(999) 9999-9999");
+                                                $(".cep").mask("99999-999");
+                                                $(".cpf").mask("999.999.999-99");
+                                                $(".rg").mask("aa-99.999.999");
+                                                $(".cnpj").mask("99.999.999/9999-99");
+                                                $(".hora").mask("99:99");
+                                                $(".data").mask("99/99/9999");
+
+
+                                            });
+
+                                        </script>
+                                        
+                                        <h:panelGrid columns="2" styleClass="aria-role-presentation">
+                                            <app:selectOneRadio id="tipoPessoa" requiredMessage="Tipo Cliente requerido" value="#{licencaBean.empresa.tipoPessoa}" values="#{tipoPessoaItems.list}" label="${msg.cliente_tipoPessoa}" required="true">
+                                                <f:ajax event="change" render="tabs2" />    
+                                            </app:selectOneRadio>
+
+                                        </h:panelGrid>
+                                        <h:panelGrid id="pClienteJuridica" columns="2" styleClass="aria-role-presentation" rendered="#{licencaBean.empresa.tipoPessoa eq 'JURIDICA'}">
+                                            <app:input id="razaosocial" value="#{licencaBean.empresa.razaosocial}" size="50" label="${msg.empresa_razaosocial}" required="true">
+                                                <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.empresa}" property="razaosocial" />
+                                            </app:input>
+                                            <app:input id="cnpj" styleClass="cnpj" value="#{licencaBean.empresa.cnpj}" size="20" label="${msg.empresa_cnpj}" required="true">
+                                                    <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.empresa}" property="cnpj" />
+                                            </app:input>
+                                            <app:input id="ie" styleClass="ie" value="#{licencaBean.empresa.ie}" size="20" label="${msg.empresa_ie}" />
+                                            <app:input id="nomeFantasia" value="#{licencaBean.empresa.nomeFantasia}" size="20" label="${msg.empresa_nomeFantasia}" />
+                                            <app:input id="sigla" value="#{licencaBean.empresa.sigla}" size="10" label="${msg.empresa_sigla}" />
+                                        </h:panelGrid>
+                                        <h:panelGrid id="pClientefisica" columns="2" styleClass="aria-role-presentation" rendered="#{licencaBean.empresa.tipoPessoa eq 'FISICA'}">
+                                            
+                                            <app:input id="nome" value="#{licencaBean.empresa.razaosocial}" size="50" label="${msg.empresa_nome}" required="true">
+                                                <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.empresa}" property="razaosocial" />
+                                            </app:input>
+                                            <app:input id="cpf" styleClass="cpf" value="#{licencaBean.empresa.cnpj}" size="20" label="${msg.empresa_cpf}" required="true">
+                                                    <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.empresa}" property="cnpj" />
+                                            </app:input>
+                                            <app:input id="rg" styleClass="rg" value="#{licencaBean.empresa.ie}" size="20" label="${msg.empresa_ie}" />
+
+
+                                        </h:panelGrid>
+
+                                    </p:tab>
+                                    <p:tab id="tendereco" title="${msg.dados_endereco}">
+                                        <h:panelGrid columns="2" styleClass="aria-role-presentation">
+                                            <app:input id="logradouro" value="#{licencaBean.empresa.logradouro}" size="100" label="${msg.empresa_logradouro}" />
+                                            <app:input id="complemento" value="#{licencaBean.empresa.complemento}" size="50" label="${msg.empresa_complemento}" />
+                                            <app:input id="numero" value="#{licencaBean.empresa.numero}" size="10" label="${msg.empresa_numero}" />
+                                            <app:input id="bairro" value="#{licencaBean.empresa.bairro}" size="100" label="${msg.empresa_bairro}" />
+                                            <app:input id="cidade" value="#{licencaBean.empresa.cidade}" size="100" label="${msg.empresa_cidade}" />
+                                            <app:selectOneMenu id="uf" value="#{licencaBean.empresa.uf}" values="#{UFItems.list}" label="${msg.empresa_uf}" size="20" />
+                                            <app:input id="cep" watermark="01.001-000" styleClass="cep" value="#{licencaBean.empresa.cep}" size="20" label="${msg.empresa_cep}" />
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab id="tcontato" title="${msg.dados_contato}">
+                                        <h:panelGrid columns="2" styleClass="aria-role-presentation">
+                                            <app:input id="telefone" watermark="(011)1100-0101" styleClass="telefone" value="#{licencaBean.empresa.telefone}" size="20" label="${msg.empresa_telefone}" />
+                                            <app:input id="fax" watermark="(011)1100-0101" styleClass="telefone"  value="#{licencaBean.empresa.fax}" size="20" label="${msg.empresa_fax}" />
+                                            <app:input id="facebook" value="#{licencaBean.empresa.facebook}" size="20" label="${msg.empresa_facebook}" />
+                                            <app:input id="site" value="#{licencaBean.empresa.site}" size="45" label="${msg.empresa_site}" />
+                                            <app:input id="email" required="true" value="#{licencaBean.empresa.email}" size="200" label="${msg.empresa_email}" />
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:tabView>
+                            </p:panel>  
+                        </p:tab>  
+
+                        <p:tab id="contrato" title="3º Passo">
+                            <p:panel header="Contrato de prestação">
+                                <ui:include src="contrato.xhtml" />
+                                <p/>
+                                <p:selectBooleanCheckbox value="#{licencaBean.skip}" itemLabel="Declaro que li e aceito os termos deste contrato (É nescessário selecionar para avançar)" /> 
+                            </p:panel>  
+                        </p:tab>
+                        <p:tab id="congratulations" title="Finalizando">  
+                            <p:panel header="Confirmation" >  
+                                Confira seus dados antes de salvar.
+                                <h:panelGrid id="confirmation" >
+                                    <p:tabView id="tabs" activeIndex="#{licencaBean.tabBean.activeIndex}">
+                                        <p:ajax event="tabChange" />
+                                        <p:tab id="tbConta" title="Dados do Usuário">
+                                            <h:panelGrid columns="2">
+                                            <app:input id="emlogin" readonly="true" value="#{licencaBean.account.login}" size="100" label="${msg.account_login}" required="true">
+                                                    <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.account}" property="login" />
+                                            </app:input>
+                                            <app:inputPassword readonly="true" id="empassword" value="#{licencaBean.account.password}" size="100" label="${msg.account_password}" required="true" />
+                                            <app:input id="ememail" readonly="true" value="#{licencaBean.account.email}" size="100" label="${msg.account_email}" required="true">
+                                                    <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.account}" property="email" />
+                                            </app:input>
+                                            <app:input readonly="true" id="emfirstName" value="#{licencaBean.account.firstName}" size="100" label="${msg.account_firstName}" />
+                                            <app:input id="emlastName" readonly="true" value="#{licencaBean.account.lastName}" size="100" label="${msg.account_lastName}" />
+                                            <app:inputDateTime readonly="true" id="embirthDate" value="#{licencaBean.account.birthDate}" label="${msg.account_birthDate}" required="true" />
+                                            
+                                            </h:panelGrid>
+                                        </p:tab>
+                                        <p:tab id="emtbEmpresa" title="Dados da Empresa">
+                                            <p:tabView id="tabs2" activeIndex="#{licencaBean.tabBean.activeIndex}">
+                                                <p:ajax event="tabChange" />
+                                                <p:tab id="etgerais" title="${msg.dados_gerais}">
+                                                    <h:panelGrid columns="2">
+                                                        <app:input readonly="true" id="emrazaosocial" value="#{licencaBean.empresa.razaosocial}" size="50" label="${msg.empresa_razaosocial}" required="true">
+                                                            <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.empresa}" property="razaosocial" />
+                                                        </app:input>
+                                                        <app:input readonly="true" id="emcnpj" watermark="01.001.001/0001-11" styleClass="cnpj" value="#{licencaBean.empresa.cnpj}" size="20" label="${msg.empresa_cnpj}" required="true">
+                                                            <f:validateBean binding="#{jpaUniqueValidator}" entity="${licencaBean.empresa}" property="cnpj" />
+                                                        </app:input>
+                                                        <app:input readonly="true" id="emie" value="#{licencaBean.empresa.ie}" size="20" label="${msg.empresa_ie}" />
+                                                        <app:input readonly="true" id="emnomeFantasia" value="#{licencaBean.empresa.nomeFantasia}" size="50" label="${msg.empresa_nomeFantasia}" />
+                                                        <app:input readonly="true" id="emsigla" value="#{licencaBean.empresa.sigla}" size="10" label="${msg.empresa_sigla}" />
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                                <p:tab id="eend" title="${msg.dados_endereco}">
+                                                    <h:panelGrid columns="2">
+                                                        <app:input readonly="true" id="emlogradouro" value="#{licencaBean.empresa.logradouro}" size="100" label="${msg.empresa_logradouro}" />
+                                                        <app:input readonly="true" id="emcomplemento" value="#{licencaBean.empresa.complemento}" size="50" label="${msg.empresa_complemento}" />
+                                                        <app:input readonly="true" id="emnumero" value="#{licencaBean.empresa.numero}" size="10" label="${msg.empresa_numero}" />
+                                                        <app:input readonly="true" id="embairro" value="#{licencaBean.empresa.bairro}" size="100" label="${msg.empresa_bairro}" />
+                                                        <app:input readonly="true" id="emcidade" value="#{licencaBean.empresa.cidade}" size="100" label="${msg.empresa_cidade}" />
+                                                        <app:selectOneMenu readonly="true" id="emuf" value="#{licencaBean.empresa.uf}" values="#{UFItems.list}" label="${msg.empresa_uf}" size="20" />
+                                                        <app:input readonly="true" id="emcep" watermark="01.001-000" styleClass="cep" value="#{licencaBean.empresa.cep}" size="20" label="${msg.empresa_cep}" />
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                                <p:tab id="etContato" title="${msg.dados_contato}">
+                                                    <h:panelGrid columns="2">
+                                                        <app:input readonly="true" id="emtelefone" watermark="(011)1100-0101" styleClass="telefone" value="#{licencaBean.empresa.telefone}" size="20" label="${msg.empresa_telefone}" />
+                                                        <app:input readonly="true" id="emfax" watermark="(011)1100-0101" styleClass="telefone"  value="#{licencaBean.empresa.fax}" size="20" label="${msg.empresa_fax}" />
+                                                        <app:input readonly="true" id="emfacebook" value="#{licencaBean.empresa.facebook}" size="20" label="${msg.empresa_facebook}" />
+                                                        <app:input readonly="true" id="emsite" value="#{licencaBean.empresa.site}" size="45" label="${msg.empresa_site}" />
+                                                        <app:input readonly="true" id="em2email" value="#{licencaBean.empresa.email}" size="200" label="${msg.empresa_email}" />
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                            </p:tabView>
+                                            
+                                        </p:tab>
+                                    </p:tabView>
+                                    
+                                </h:panelGrid>  
+
+                                
+                                <p:commandButton icon="ui-icon-disk" value="Salvar" update=":form:messages" immediate="true" process="@this"
+                                                 oncomplete="instalationDialog.hide();" actionListener="#{licencaBean.save}"/>  
+
+                            </p:panel>  
+                        </p:tab>  
+
+                    </p:wizard>  
+                </h:form>
+            </p:dialog> 
+	</ui:define>
+</ui:composition>

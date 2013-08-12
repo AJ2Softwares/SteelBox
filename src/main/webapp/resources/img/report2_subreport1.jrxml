@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_subreport1" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7a471148-0c4d-4cb8-864a-1e7f4cab4bd2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     itens_os.`id` AS itens_os_id,
+     itens_os.`adicionais` AS itens_os_adicionais,
+     itens_os.`desconto` AS itens_os_desconto,
+     itens_os.`quantidade` AS itens_os_quantidade,
+     itens_os.`valor` AS itens_os_valor,
+     servicos.`servico` AS servicos_servico
+FROM
+     `os` os INNER JOIN `itens_os` itens_os ON os.`id` = itens_os.`os_id`
+     INNER JOIN `servicos` servicos ON itens_os.`servicos_id` = servicos.`id_servicos`]]>
+	</queryString>
+	<field name="itens_os_id" class="java.lang.Integer"/>
+	<field name="itens_os_adicionais" class="java.lang.Double"/>
+	<field name="itens_os_desconto" class="java.lang.Double"/>
+	<field name="itens_os_quantidade" class="java.lang.Integer"/>
+	<field name="itens_os_valor" class="java.lang.Double"/>
+	<field name="servicos_servico" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1d0ab010-73d6-4f3d-9e1e-0149dc3727be" x="0" y="0" width="134" height="20"/>
+				<textElement/>
+				<text><![CDATA[servicos_servico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d3f2edc-e618-46c1-a538-e133c712dfe8" x="134" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[itens_os_quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9fcb6f77-f3b0-4d6a-9da8-99b29381c79b" x="234" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[itens_os_adicionais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="63ab2345-7348-476a-8965-29ce3a2647fb" x="334" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[itens_os_valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bbb5955a-7300-472c-a2ba-336f9f82d402" x="434" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[itens_os_desconto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="25fa84bc-029b-4467-85f1-8a3ffbc061f8" x="0" y="0" width="134" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{servicos_servico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ae46606f-88fe-4393-bc20-23cbb94edfb3" x="134" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{itens_os_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ef0b7a02-ac09-4592-8afd-eb5e769ce44a" x="234" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{itens_os_adicionais}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fdd7221e-3bd0-4baf-9ab3-03eb16446ce5" x="334" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{itens_os_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8ff25b0e-3598-4967-8a71-fbc3baea3b94" x="434" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{itens_os_desconto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

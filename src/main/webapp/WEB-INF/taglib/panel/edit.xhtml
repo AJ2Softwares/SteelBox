@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:app="http://springfuse.jaxio.com/app"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/layouts/main.xhtml">
+	<ui:define name="toolbarChildren">
+		<p:toolbarGroup rendered="#{sub or readonly}">
+			<p:commandButton id="back" action="#{bean.back()}" process="@none" ajax="false" immediate="true"
+				value="#{msg.back}" icon="ui-icon-arrowreturnthick-1-w"/>
+		</p:toolbarGroup>
+		<p:toolbarGroup rendered="#{not sub and not readonly}">
+			<p:commandButton id="close" oncomplete="askForSaveDialog.show(); APP.focusAskForSaveDialog();"
+                                global="false"
+				ajax="true" immediate="true" process="@this"
+				icon="ui-icon-close"
+				value="#{msg.menu_close}"
+				title="#{msg.menu_close} #{resourcesUtil.getProperty(title)}"/>
+                        <p:separator />
+                        <app:saveButton title="#{resourcesUtil.getProperty(title)}" bean="#{bean}"/>
+			<p:commandButton id="delete" icon="ui-icon-trash"
+                                global="false"
+				onclick="askForDeleteDialog.show(); APP.focusAskForDeleteDialog();"
+				value="#{msg.menu_delete_and_close}"
+				title="#{msg.menu_delete_and_close} #{resourcesUtil.getProperty(title)}"
+				disabled="#{empty bean.entity.id}" />                                                
+                        
+                        <p:commandButton id="export" icon="ui-icon-transferthick-e-w"
+                                    global="false"
+                                    rendered="#{exportar}"
+                                    onclick="exportarDialog.show();"
+                                    value="Exportar"
+                                    title="#{msg.menu_delete_and_close} #{title}"
+                                    disabled="#{empty bean.entity.id}"/>
+
+                        <p:commandButton id="Enviar" icon="ui-icon-mail-closed"
+                                actionListener="#{osEditForm.setAnexo()}"
+                                onclick="emailDialog.show();"
+                                rendered="#{exportar}"
+                                update="emailPanel"
+                                value="Enviar"
+                                title="#{msg.menu_delete_and_close} #{title}"
+                                disabled="#{empty bean.entity.id}"/>
+			
+		</p:toolbarGroup>
+	</ui:define>
+	<ui:define name="content">
+		<p:breadCrumb model="#{conversationManager.breadCrumbMenuModel}" rendered="#{conversationManager.renderBreadCrumb}" />
+                
+                    <p:fieldset id="fieldset">
+                        <p:panel id="panel">
+                            <input type="hidden" name="_cid" value="#{conversationManager.currentConversation.cid}"/>
+                            
+                            <f:validateBean disabled="true">
+                                    <ui:insert name="tabsCliente" />
+                                    <ui:insert name="form2" />
+                                    <h:panelGrid columns="2" styleClass="aria-role-presentation">
+                                            <ui:insert name="form" />					
+                                    </h:panelGrid>
+                                    <ui:insert name="subform" />
+                                    <ui:insert name="tabs" />
+                                    
+                            </f:validateBean>
+                        </p:panel>
+                    </p:fieldset>
+                    
+                
+	</ui:define>
+	<ui:define name="dialogs">
+		<ui:insert name="custom-dialogs" />
+		<p:confirmDialog widgetVar="askForDeleteDialog"  header="#{msg.menu_delete}?" message="#{msg.dialog_delete_confirm}">
+			<h:panelGrid id="askForDeleteDialogContent" columns="1" cellpadding="4" style="margin:0 auto;">
+				<h:outputText value="#{printer.print(bean.entity)}" style="font-weight:bold" />
+			</h:panelGrid>
+			<p:commandButton id="askForDeleteDialogYes" action="#{bean.deleteAndClose()}" ajax="false" immediate="true" process="@none" value="#{msg.yes}" title="#{msg.dialog_delete_confirm} #{msg.yes}" icon="ui-icon-check" />
+			<p:commandButton id="askForDeleteDialogNo" value="#{msg.no}" title="#{msg.dialog_delete_confirm} #{msg.no}" onclick="askForDeleteDialog.hide(); APP.focusTo('form:delete'); return false;" icon="ui-icon-cancel"/>
+		</p:confirmDialog>
+		<p:confirmDialog widgetVar="askForSaveDialog" header="#{msg.menu_save}?" message="#{msg.dialog_ask_for_save}">
+			<p:commandButton id="askForSaveDialogYes" action="#{bean.saveAndClose()}" ajax="true" process="@form" value="#{msg.yes}"
+				title="#{msg.dialog_ask_for_save} #{msg.yes}"
+				onstart="askForSaveDialog.hide()"
+				styleClass="aria-save-button"
+				update="messages" icon="ui-icon-check" />
+			<p:commandButton id="askForSaveDialogNo" action="#{bean.forceClose()}" ajax="false"
+				value="#{msg.no}"
+				title="#{msg.dialog_ask_for_save} #{msg.no}"
+				icon="ui-icon-cancel" immediate="true" process="@none" />
+		</p:confirmDialog>
+                <p:dialog id="export2" global="false" widgetVar="exportarDialog" modal="true" header="Escolha o formato" width="300"  
+                    resizable="false" showEffect="clip" hideEffect="clip">  
+                    <h:panelGrid columns="4">
+
+                        <h:commandLink  action="#{bean.export('XLS')}" onclick="exportarDialog.hide()">
+                            <h:graphicImage id="xls" name="icons/xls.png"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{bean.export('PDF')}" onclick="exportarDialog.hide()">
+                            <h:graphicImage id="pdf" name="icons/pdf.png"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{bean.export('CSV')}" onclick="exportarDialog.hide()">
+                            <h:graphicImage id="csv" name="icons/csv.png"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{bean.export('XML')}" onclick="exportarDialog.hide()">
+                            <h:graphicImage id="xml" name="icons/xml.png"/>
+                        </h:commandLink>
+                        
+                    </h:panelGrid>
+                    <p:ajax event="close" update="messages" />  
+
+                </p:dialog>  
+
+	</ui:define>
+</ui:composition>

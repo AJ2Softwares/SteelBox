@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="testeOs" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9659152b-0976-46dd-99dd-5db9d7b746f4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Caixa">
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<pen lineWidth="0.75"/>
+			<topPen lineWidth="0.75"/>
+			<leftPen lineWidth="0.75"/>
+			<bottomPen lineWidth="0.75"/>
+			<rightPen lineWidth="0.75"/>
+		</box>
+	</style>
+	<style name="subform">
+		<box leftPadding="1">
+			<topPen lineWidth="1.0"/>
+			<leftPen lineWidth="1.0"/>
+			<rightPen lineWidth="1.0"/>
+		</box>
+	</style>
+	<style name="SubReoport_Left">
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<leftPen lineWidth="0.75"/>
+		</box>
+	</style>
+	<style name="SubReport_Right">
+		<pen lineStyle="Double"/>
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<rightPen lineWidth="0.75"/>
+		</box>
+	</style>
+	<style name="Style_1">
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="1.0"/>
+			<bottomPen lineWidth="1.0"/>
+			<rightPen lineWidth="1.0"/>
+		</box>
+	</style>
+	<style name="Text Body"/>
+	<style name="Heading 4" fontSize="12" isBold="true" isItalic="true"/>
+	<style name="Default"/>
+	<style name="Heading 1" fontSize="16" isBold="true"/>
+	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\João Paulo\\SteelBox\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endereco" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.lang.Object"/>
+	<parameter name="razaoSocial" class="java.lang.String"/>
+	<parameter name="botton" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="status" class="java.lang.Object"/>
+	<field name="dataAtendimento" class="java.util.Date"/>
+	<field name="dataConclusao" class="java.util.Date"/>
+	<field name="dataVenciemento" class="java.util.Date"/>
+	<field name="formaPagamento" class="java.lang.Object"/>
+	<field name="produtor.nome" class="java.lang.String"/>
+	<field name="produtor.cpfCnpj" class="java.lang.String"/>
+	<field name="cliente.nome" class="java.lang.String"/>
+	<field name="cliente.cpfCnpj" class="java.lang.String"/>
+	<field name="cliente.logradouro" class="java.lang.String"/>
+	<field name="cliente.numero" class="java.lang.String"/>
+	<field name="cliente.complemento" class="java.lang.String"/>
+	<field name="cliente.bairro" class="java.lang.String"/>
+	<field name="cliente.cidade" class="java.lang.String"/>
+	<field name="cliente.uf" class="java.lang.Object"/>
+	<field name="cliente.cep" class="java.lang.String"/>
+	<field name="cliente.telefone" class="java.lang.String"/>
+	<field name="cliente.email" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="listItensOs" class="java.util.List"/>
+	<variable name="Soma" class="java.lang.Double" resetType="None"/>
+	<variable name="empresa" class="java.lang.String"/>
+	<background>
+		<band height="800">
+			<image>
+				<reportElement uuid="60240020-f80e-45ec-99d1-983c9daa7bb4" x="0" y="0" width="555" height="800"/>
+				<imageExpression><![CDATA["C:\\Users\\João Paulo\\SteelBox\\src\\main\\webapp\\resources\\img\\bckOs.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<columnHeader>
+		<band height="82" splitType="Stretch">
+			<textField>
+				<reportElement uuid="e0e24936-f309-4e8e-89f2-8b785d1ec4c7" mode="Transparent" x="6" y="6" width="219" height="33" forecolor="#007CBB"/>
+				<textElement>
+					<font fontName="Tahoma" size="20" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{razaoSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7a3a7c7e-a210-4611-adcc-fbaee43c7815" x="4" y="38" width="290" height="23"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{endereco}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="75363a22-9e2f-47d1-bc70-8789c419fa9c" x="368" y="55" width="176" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="51be81e8-6f18-4c0e-a112-06925c09bd89" x="8" y="57" width="290" height="23" forecolor="#007CBB"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status} == "CONCLUIDO" ? "Ordem de Serviço" : "Orçamento" +"           Nº:"+$F{id}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="aed23c18-b507-49e6-8636-6d6e535ac79d" x="455" y="5" width="100" height="50"/>
+				<imageExpression><![CDATA[new ByteArrayInputStream((byte[])$P{logo})]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="251" splitType="Stretch">
+			<textField>
+				<reportElement uuid="ba0136e0-8df8-4eb0-b7e1-faaf190528f1" style="Text Body" x="91" y="19" width="291" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f5525d61-7f43-453e-b8b0-59c9ef27f2cc" style="Text Body" x="51" y="36" width="215" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente.logradouro}+","+$F{cliente.numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="39505817-8471-4361-81e9-2b4c44fc6be9" style="Text Body" x="314" y="36" width="198" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente.bairro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ac7b25fa-9595-41b1-b54b-eeb0f27746bd" style="Text Body" x="478" y="19" width="81" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente.cpfCnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="438dc417-9d3d-4f03-acce-9229fe1cdd9d" style="Text Body" x="91" y="120" width="249" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{produtor.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a8a3d533-d7f5-4a02-807b-d61f64148f4f" style="Default" x="51" y="137" width="249" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{produtor.cpfCnpj}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="02cc1c8e-ea33-4699-98a0-d8b4e445f698" x="0" y="224" width="555" height="26"/>
+				<subreportParameter name="os_id"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listItensOs})]]></dataSourceExpression>
+				<returnValue subreportVariable="SomaTotal" toVariable="Soma"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Os_subreport.jasper"]]></subreportExpression>
+			</subreport>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="abf57f28-f181-4925-a3f2-50ad8bc4c1be" style="Default" x="484" y="120" width="71" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataAtendimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="dee8345c-8120-4d4f-8481-cfbc87aeb0c3" style="Default" x="484" y="137" width="71" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataConclusao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="86104790-d30f-456c-b466-a69d0f137cc1" style="Heading 4" x="0" y="100" width="555" height="20"/>
+				<textElement textAlignment="Center" markup="html">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status} == "CONCLUIDO" ? "Dados da Ordem de Serviço" : "Dados do Orçamento"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7afa6cf7-7372-4014-b547-58305272a2f4" style="Default" x="91" y="154" width="249" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{formaPagamento} == "AVISTA"? "À Vista":$F{formaPagamento} == "CARTAO" ?"Cartão de Credito":$F{formaPagamento} == "CHEQUE" ?"Cheque":"Boleto"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="c2071670-85d1-4c16-9db6-b1b1124d2d76" style="Default" x="484" y="153" width="71" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{formaPagamento}!= "AVISTA"? $F{dataVenciemento}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f72b1639-7185-463c-b2af-f5caeb5eb1d6" style="Text Body" x="51" y="53" width="288" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente.cidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e197e666-e941-486b-ae58-81dbd7875bfc" style="Text Body" x="497" y="53" width="49" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente.cep}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2dab5751-f8b8-405c-99ec-d463a3d2cce3" style="Text Body" x="44" y="70" width="122" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente.telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5812c8e5-7093-41f5-ac09-05190faf2493" style="Text Body" x="152" y="70" width="347" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente.email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="37fa500a-43a5-4a19-b66b-3b300352ca0f" style="Text Body" x="445" y="53" width="27" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente.uf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="86104790-d30f-456c-b466-a69d0f137cc1" style="Heading 4" x="184" y="0" width="198" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dados do Cliente"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement uuid="83e81be8-92d4-4b80-a057-d10dfd8dbed7" x="0" y="250" width="100" height="1"/>
+			</break>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="162">
+			<textField>
+				<reportElement uuid="308804b6-7386-492f-9ab6-d444f3b7c886" x="208" y="141" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd3187ff-a30a-4bcf-ae1f-49df521c584c" x="292" y="141" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="63171f69-2f5b-4bae-8b8b-652ea4aafb74" style="Heading 2" x="472" y="1" width="79" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{Soma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2caf0766-e6ce-4e7b-be43-5c7a9f5a9ac1" x="8" y="57" width="536" height="104"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA[$P{botton}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

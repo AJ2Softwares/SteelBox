@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:app="http://springfuse.jaxio.com/app"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+	<app:outputLabel for="#{id}" value="#{label}" required="#{required}" rendered="#{rendered}" />
+	<h:panelGrid columns="4" id="#{id}" styleClass="aria-role-presentation" rendered="#{empty rendered ? true : rendered}">
+		<app:outputLabel for="#{id}RangeFrom" value="range_from" />
+		<p:inputText id="#{id}RangeFrom" onkeyup="${onkeyup}" value="#{value.from}" converter="javax.faces.Double">
+                    <f:converter converterId="MoedaConverter" rendered="${!empty onkeyup}"/>
+                </p:inputText>
+		<app:outputLabel for="#{id}RangeTo"  value="range_to" />
+		<p:inputText id="#{id}RangeTo" onkeyup="${onkeyup}" value="#{value.to}" converter="javax.faces.Double">
+                    <f:converter converterId="MoedaConverter" rendered="${!empty onkeyup}"/>
+                </p:inputText>
+	</h:panelGrid>
+</ui:composition>

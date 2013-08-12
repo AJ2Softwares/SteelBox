@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Os_subreport1" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c5224fdf-6c24-4aaa-bc16-cf3a15f0f4c4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Caixa">
+		<pen lineStyle="Double"/>
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<pen lineWidth="0.75"/>
+			<topPen lineWidth="0.75"/>
+			<leftPen lineWidth="0.75"/>
+			<bottomPen lineWidth="0.75"/>
+			<rightPen lineWidth="0.75"/>
+		</box>
+	</style>
+	<style name="subform">
+		<box leftPadding="1">
+			<topPen lineWidth="0.75"/>
+			<leftPen lineWidth="1.0"/>
+			<bottomPen lineWidth="0.75"/>
+			<rightPen lineWidth="1.0"/>
+		</box>
+	</style>
+	<style name="subReport">
+		<box>
+			<leftPen lineWidth="1.0"/>
+			<rightPen lineWidth="1.0"/>
+		</box>
+	</style>
+	<style name="SubReoport_Left">
+		<box>
+			<leftPen lineWidth="1.0"/>
+		</box>
+	</style>
+	<style name="SubReport_Right">
+		<box>
+			<rightPen lineWidth="1.0"/>
+		</box>
+	</style>
+	<style name="Text Body"/>
+	<style name="Default"/>
+	<parameter name="os_id" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     itens_os.`id` AS itens_os_id,
+     itens_os.`os_id` AS itens_os_os_id,
+     itens_os.`servicos_id` AS itens_os_servicos_id,
+     itens_os.`valor` AS itens_os_valor,
+     itens_os.`desconto` AS itens_os_desconto,
+     itens_os.`quantidade` AS itens_os_quantidade,
+     itens_os.`adicionais` AS itens_os_adicionais,
+     itens_os.`total` AS itens_os_total,
+     servicos.`servico` AS servicos_servico
+FROM
+     `servicos` servicos INNER JOIN `itens_os` itens_os ON servicos.`id_servicos` = itens_os.`servicos_id`
+where
+     itens_os.`os_id` = $P{os_id}]]>
+	</queryString>
+	<field name="itens_os_id" class="java.lang.Integer"/>
+	<field name="itens_os_os_id" class="java.lang.Integer"/>
+	<field name="itens_os_servicos_id" class="java.lang.Integer"/>
+	<field name="itens_os_valor" class="java.lang.Double"/>
+	<field name="itens_os_desconto" class="java.lang.Double"/>
+	<field name="itens_os_quantidade" class="java.lang.Integer"/>
+	<field name="itens_os_adicionais" class="java.lang.Double"/>
+	<field name="itens_os_total" class="java.lang.Double"/>
+	<field name="servicos_servico" class="java.lang.String"/>
+	<variable name="SomaTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{itens_os_quantidade}*$F{itens_os_valor}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement uuid="119378d2-a943-4ed8-9ec3-637173132612" style="Caixa" x="0" y="0" width="209" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serviço/Despesas/Produtos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="661f0e72-6536-4308-a4f4-1acae1d305d1" style="Caixa" x="209" y="0" width="81" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a3acbd0b-667b-4589-ab1e-721a3df161e5" style="Caixa" x="290" y="0" width="54" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c1429ec8-7eee-485b-a6f6-00fc4add34d9" style="Caixa" x="344" y="0" width="62" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desconto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8bdcad73-2809-4602-bc1b-6d232b265387" style="Caixa" x="406" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Adicionais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="199f669b-3ca2-4e80-b67b-4c475498b7c7" style="Caixa" x="466" y="0" width="89" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement uuid="f0cc5cf5-7add-42a0-9b37-24e9b08c8ef8" style="Default" x="290" y="0" width="54" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itens_os_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="d72074a1-9232-4006-8094-1d133bf5a6b0" style="Default" x="209" y="0" width="81" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itens_os_valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0 %">
+				<reportElement uuid="c20e5fbf-be04-49a1-a164-b9030de8a93e" style="Default" x="344" y="0" width="62" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itens_os_desconto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="21cdfc99-5296-4063-b6e4-f82780dd48fc" style="Default" x="406" y="0" width="60" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itens_os_adicionais}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="407c4e9a-3cb2-47f5-8d77-f0a4d37a4303" style="SubReport_Right" x="466" y="0" width="89" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itens_os_valor}*$F{itens_os_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8ac37db6-ebf9-4477-8aa7-e97e4351eb17" style="SubReoport_Left" x="0" y="0" width="209" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   "+$F{servicos_servico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

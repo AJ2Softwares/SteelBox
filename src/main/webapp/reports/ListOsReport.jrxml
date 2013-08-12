@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfd06972-081b-4f1a-ab3b-ad9fd1da9db2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="caixa">
+		<box leftPadding="5">
+			<topPen lineWidth="1.0"/>
+			<leftPen lineWidth="1.0"/>
+			<bottomPen lineWidth="1.0"/>
+			<rightPen lineWidth="1.0"/>
+		</box>
+	</style>
+	<style name="Text Body"/>
+	<scriptlet name="somarOs" class="net.sf.jasperreports.engine.JRDefaultScriptlet"/>
+	<parameter name="logo" class="java.lang.Object"/>
+	<parameter name="razaoSocial" class="java.lang.String"/>
+	<parameter name="endereco" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\João Paulo\\SteelBox\\src\\main\\webapp\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cliente.nome" class="java.lang.String"/>
+	<field name="produtor.nome" class="java.lang.String"/>
+	<field name="dataAtendimento" class="java.util.Date"/>
+	<field name="dataConclusao" class="java.util.Date"/>
+	<field name="dataVenciemento" class="java.util.Date"/>
+	<field name="status.label" class="java.lang.String"/>
+	<field name="listItensOs" class="java.util.List"/>
+	<variable name="soma" class="java.lang.Double"/>
+	<variable name="somarTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[br.com.aj2.web.domain.OsController.somar($F{listItensOs})]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="139" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="75540c9d-cdb5-403c-9eb5-2ed5e0977d6f" style="Text Body" x="0" y="119" width="122" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fb8b8641-642b-41f1-8282-f714cc984828" style="Text Body" x="122" y="119" width="117" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produtor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0950d338-ed11-4540-ba69-b8fe31db3443" style="Text Body" x="239" y="119" width="60" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8e129727-3859-4748-b5a6-f15f6732ae59" style="Text Body" x="299" y="119" width="64" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atendimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="21353be4-abe2-4cae-b1a9-74e84ed83c9a" style="Text Body" x="363" y="119" width="60" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Conclusão]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="183f3c88-bcd2-43cd-a991-3c918cf19509" style="Text Body" x="423" y="119" width="66" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="af0e0fe4-a69b-40ba-931e-17a0b529d22d" style="Text Body" x="489" y="119" width="66" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d20e3ccc-3848-4c66-9374-32a92c9db0fb" x="0" y="4" width="276" height="29" forecolor="#007CBB"/>
+				<textElement>
+					<font fontName="Tahoma" size="20" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{razaoSocial}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="e8bf2977-9d6a-45d2-aeda-f5af9a1db094" x="455" y="4" width="100" height="50"/>
+				<imageExpression><![CDATA[new ByteArrayInputStream((byte[])$P{logo})]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="64df8f9a-8706-4789-b0a3-0f69b1ac3a0a" x="0" y="33" width="381" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{endereco}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="784ced49-de87-451c-b632-f8f971c39f37" x="0" y="47" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="784ced49-de87-451c-b632-f8f971c39f37" x="0" y="50" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement uuid="9c79d4d9-e4d6-41e2-9a00-19cc80014c46" style="Text Body" x="0" y="4" width="122" height="15"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="128a393a-28c0-431b-ad8b-661d0ab31da0" style="Text Body" x="122" y="4" width="117" height="15"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produtor.nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="cf2551d9-4e0c-409d-8760-ec564d8f7d79" style="Text Body" x="299" y="4" width="64" height="15"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataAtendimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="8f788aae-f860-49c3-8987-332108f060b6" style="Text Body" x="363" y="4" width="60" height="15"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataConclusao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="102a5bc1-f09e-4d0c-9db6-91faaa7b1c36" style="Text Body" x="423" y="4" width="66" height="15"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataVenciemento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d65b4e0d-9afd-4d37-a098-782fce75d89c" style="Text Body" x="239" y="4" width="60" height="15"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status.label}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="a7ecd6b6-c505-4bd8-a578-bf49439fb279" x="0" y="2" width="553" height="1"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="1b1732bc-2438-47e8-8d64-60e42071375d" x="489" y="3" width="64" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[br.com.aj2.web.domain.OsController.somar($F{listItensOs})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="48">
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="1b1732bc-2438-47e8-8d64-60e42071375d" x="474" y="7" width="79" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.aj2.web.domain.OsController.somar($F{listItensOs})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="cebae25a-1f5b-4aa3-8f15-d63c5d31af30" x="0" y="4" width="553" height="1"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="c99e860a-368d-4269-8fba-d844acf6f792" x="363" y="7" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

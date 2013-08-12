@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lista de Os" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="604930d2-a9f4-4579-888a-ac07702b63a1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="br.com.aj2.domain.Empresa" isForPrompting="false"/>		
+	
+	<field name="dataAtendimento" class="java.util.Date"/>
+	<field name="dataConclusao" class="java.util.Date"/>
+	<field name="dataVenciemento" class="java.util.Date"/>
+	<field name="produtor.nome" class="java.lang.String"/>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement uuid="e5fcb380-a5e5-46c8-802d-cb97aeedc6a5" x="201" y="0" width="117" height="20"/>
+				<textElement/>
+				<text><![CDATA[dataAtendimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9abb1d82-1635-4a74-b4cb-a0a5d13dc6a0" x="318" y="0" width="126" height="20"/>
+				<textElement/>
+				<text><![CDATA[dataConclusao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b06710a8-f331-4723-9053-599e7be64219" x="444" y="0" width="111" height="20"/>
+				<textElement/>
+				<text><![CDATA[dataVenciemento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="59811c12-1144-4330-b79e-735449326c42" x="0" y="1" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[produtor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement uuid="425ec8e4-a042-4a27-9735-1e7b384ecf67" x="201" y="0" width="117" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataAtendimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="29c4d464-997a-4245-88ea-0afa506897fd" x="318" y="0" width="126" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataConclusao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ed4f2f1d-2fd9-43b0-bc23-703beb6f79a0" x="444" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataVenciemento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5d3ede62-5928-4c8b-85c6-b40e8c9bc9f9" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{produtor.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6c93163b-6992-46f1-a16d-2ae455753c4f" x="100" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{empresa}.getRazaoSocial()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:app="http://springfuse.jaxio.com/app">
+	<app:outputLabel for="#{id}_input" value="#{label}" required="#{required}" rendered="#{rendered}" />
+	<h:panelGroup rendered="#{(empty readonly or not readonly) and (empty rendered or rendered)}">
+            <p:calendar id="#{id}" value="#{value}" pattern="dd/MM/yyyy HH:mm" showButtonPanel="true" navigator="true" locale="pt">
+			<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+			<f:validateBean binding="#{lenientBeanValidator}"/>	
+			<ui:insert/>
+		</p:calendar>
+	</h:panelGroup>
+	<h:outputText value="#{value}" rendered="#{readonly and (empty rendered or rendered)}">
+		<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+	</h:outputText>
+</ui:composition>
